@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "fil-portal"
+    }
+  },
+  "defaultProject": "fil-portal",
+  "cli": {
+    "analytics": false
+  }
 }
