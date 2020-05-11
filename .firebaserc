@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "fil-portal"
+  },
+  "targets": {
+    "fil-portal": {
+      "hosting": {
+        "fil-portal": [
+          "fil-portal"
+        ]
+      }
+    }
   }
 }
