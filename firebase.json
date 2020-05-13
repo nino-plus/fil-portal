@@ -11,16 +11,6 @@
   },
   "hosting": [
     {
-      "public": "dist/fil-portal",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
       "target": "fil-portal",
       "public": "dist/fil-portal",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
