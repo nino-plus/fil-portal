@@ -1,0 +1,14 @@
+.footer {
+  padding: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  text-align: center;
+  &__navs {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  &__copyright {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.38);
+  }
+}
