@@ -1,0 +1,30 @@
+.spacer {
+  flex: 1;
+}
+
+.header_logo {
+  font-size: 24px;
+}
+
+.search {
+  display: flex;
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+  &__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    padding-right: 32px;
+    padding-left: 16px;
+    line-height: 32px;
+    border-radius: 4px;
+    width: 100%;
+  }
+  &__icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
+  }
+}

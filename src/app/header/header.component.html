@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <a class="header_logo" mat-flat-button color="primary" routerLink="/"
+    >Fil-Portal</a
+  >
+
+  <div class="search">
+    <input class="search__input" type="text" autocomplete="off" />
+    <mat-icon class="search__icon" color="primary">search</mat-icon>
+  </div>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button>
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>account_box</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>account_circle</mat-icon>
+      <span>マイページ</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>設定</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>ログアウト</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
