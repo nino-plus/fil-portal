@@ -17,9 +17,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
