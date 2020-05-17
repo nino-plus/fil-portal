@@ -1,8 +1,9 @@
 <div class="grid">
-  <mat-card *ngFor="let item of items" [routerLink]="['/detail, item.id']">
+  <mat-card *ngFor="let item of items">
     <img src="../../assets/Slowool15_Nm2_58_1888.jpg" alt="" />
     <p>{{ item.supplier }}</p>
     <h3>{{ item.title }}</h3>
     <p>{{ item.season }}</p>
+    <button [routerLink]="['/detail', item.id]">詳細画面へ</button>
   </mat-card>
 </div>
