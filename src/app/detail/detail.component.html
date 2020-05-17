@@ -1,0 +1,10 @@
+<div *ngIf="article; else blank">
+  <img src="../../assets/Slowool15_Nm2_58_1888.jpg" alt="" />
+  <p>{{ article.supplier }}</p>
+  <h3>{{ article.title }}</h3>
+  <p>{{ article.season }}</p>
+</div>
+
+<ng-template #blank>
+  <p>Not Found</p>
+</ng-template>
