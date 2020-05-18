@@ -12,12 +12,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HeaderComponent } from './header/header.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
 import { FooterComponent } from './footer/footer.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -31,11 +27,7 @@ import { FooterComponent } from './footer/footer.component';
     AngularFireStorageModule,
     AngularFireFunctionsModule,
     AngularFireAuthModule,
-    MatIconModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatMenuModule,
+    SharedModule,
   ],
   providers: [{ provide: REGION, useValue: 'asia-notheast1' }],
   bootstrap: [AppComponent],
