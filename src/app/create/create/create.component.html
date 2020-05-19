@@ -1,0 +1,143 @@
+<h1>Add New Article</h1>
+
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field>
+      <mat-label>Supplier</mat-label>
+      <mat-select formControlName="supplier" disableRipple>
+        <mat-option value="Botto Giuseppe">Botto Giuseppe</mat-option>
+        <mat-option value="Linea Piu">Linea Piu</mat-option>
+        <mat-option value="ZhongDing">ZhongDing</mat-option>
+        <mat-option value="Ferrari">Ferrari</mat-option>
+        <mat-option value="ZhongDing">ZhongDing</mat-option>
+      </mat-select>
+      <mat-error *ngIf="supplierControl.hasError('required')"
+        >必須入力です</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="name-input" appearance="outline">
+      <mat-label>yarn name</mat-label>
+      <input
+        formControlName="name"
+        placeholder="yarn name"
+        type="text"
+        matInput
+        autocomplete="off"
+        required
+      />
+      <mat-error *ngIf="nameControl.hasError('required')"
+        >必須入力です</mat-error
+      >
+      <mat-error *ngIf="nameControl.hasError('maxlength')"
+        >長過ぎます</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="name-input" appearance="outline">
+      <mat-label>Composition</mat-label>
+      <input
+        formControlName="composition"
+        placeholder="composition"
+        type="text"
+        matInput
+        autocomplete="off"
+        required
+      />
+      <mat-error *ngIf="compositionControl.hasError('required')"
+        >必須入力です</mat-error
+      >
+      <mat-error *ngIf="compositionControl.hasError('maxlength')"
+        >長過ぎます</mat-error
+      >
+    </mat-form-field>
+
+    <p>Season</p>
+    <mat-radio-group class="radio-group" formControlName="season">
+      <mat-radio-button class="radio-group__item" value="21SS"
+        >21SS</mat-radio-button
+      >
+      <mat-radio-button class="radio-group__item" value="20-21AW"
+        >20-21AW</mat-radio-button
+      >
+    </mat-radio-group>
+
+    <p>Type</p>
+    <mat-radio-group class="radio-group" formControlName="type">
+      <mat-radio-button class="radio-group__item" value="Worsted"
+        >Worsted</mat-radio-button
+      >
+      <mat-radio-button class="radio-group__item" value="Woollen"
+        >Woollen</mat-radio-button
+      >
+      <mat-radio-button class="radio-group__item" value="semi-Worsted"
+        >semi-Worsted</mat-radio-button
+      >
+      <mat-radio-button class="radio-group__item" value="Fancy"
+        >Fancy</mat-radio-button
+      >
+    </mat-radio-group>
+
+    <p>gauges</p>
+    <div class="checkbox-group" formGroupName="gauges">
+      <mat-checkbox
+        class="checkbox-group__item"
+        type="checkbox"
+        formControlName="3-5gg"
+        >3-5gg</mat-checkbox
+      >
+      <mat-checkbox
+        class="checkbox-group__item"
+        type="checkbox"
+        formControlName="5-7gg"
+        >5-7gg</mat-checkbox
+      >
+      <mat-checkbox
+        class="checkbox-group__item"
+        type="checkbox"
+        formControlName="12-14gg"
+        >12-14gg</mat-checkbox
+      >
+      <mat-checkbox
+        class="checkbox-group__item"
+        type="checkbox"
+        formControlName="16-18gg"
+        >16-18gg</mat-checkbox
+      >
+    </div>
+
+    <p>others</p>
+    <div class="checkbox-group" formGroupName="otherFeatures">
+      <mat-checkbox
+        class="checkbox-group__item"
+        type="checkbox"
+        formControlName="newss"
+        >New for SS</mat-checkbox
+      >
+      <mat-checkbox
+        class="checkbox-group__item"
+        type="checkbox"
+        formControlName="newaw"
+        >New for AW</mat-checkbox
+      >
+      <mat-checkbox
+        class="checkbox-group__item"
+        type="checkbox"
+        formControlName="stockService"
+        >Stock Service</mat-checkbox
+      >
+      <mat-checkbox
+        class="checkbox-group__item"
+        type="checkbox"
+        formControlName="sustainability"
+        >Sustainability</mat-checkbox
+      >
+    </div>
+
+    <div class="form-footer">
+      <button [disabled]="form.invalid" mat-raised-button color="primary">
+        Add
+      </button>
+    </div>
+  </form>
+</div>
