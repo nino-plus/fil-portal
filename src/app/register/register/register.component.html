@@ -1,0 +1,73 @@
+
+
+<!-- ログイン後に表示 -->
+<div class="container">
+  <div *ngIf="user$ | async as user; else loginArea">
+    <h1>{{user.email}}でログイン中</h1>
+    <p>メール：{{user.email}}</p>
+    <p>userId：{{user.userId}}</p>
+    <p>作成日：{{user.createdAt}}</p>
+    <div class="form-footer"><button (click)="logout()" mat-raised-button color="primary">logout</button></div>
+  </div>
+</div>
+
+<!-- ログイン前に表示 -->
+<div class="container">
+  <ng-template #loginArea>
+    <h1>新規登録・ログイン</h1>
+    <form [formGroup]="form">
+
+      <mat-form-field class="name-input" appearance="outline">
+        <mat-label>メールアドレス</mat-label>
+        <input
+          type="email"
+          formControlName="email"
+          required autocomplete="email"
+          matInput
+        />
+      </mat-form-field>
+      <mat-form-field class="name-input" appearance="outline">
+        <mat-label>パスワード</mat-label>
+        <input
+          type="password"
+          formControlName="password"
+          required
+          autocomplete="current-password"
+          matInput
+        />
+      </mat-form-field>
+      <div class="form-footer">
+        <button
+          class="form-footer__button"
+          type="button"
+          (click)="register()"
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="primary"
+        >
+          register
+        </button>
+
+        <button
+          class="form-footer__button"
+          type="button" (click)="login()"
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="primary"
+        >
+          login
+        </button>
+
+        <button
+          class="form-footer__button"
+          type="button"
+          (click)="resetPassword()"
+          [disabled]="form.get('email').invalid"
+          mat-raised-button color="primary"
+        >
+          reset password
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</div>
