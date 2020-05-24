@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../services/article.service';
+import { Article } from '../interfaces/article';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-detail',
@@ -8,7 +11,7 @@ import { ArticleService } from '../services/article.service';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-  article;
+  article$: Observable<Article>;
 
   constructor(
     private route: ActivatedRoute,
@@ -16,10 +19,11 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((map) => {
-      const id = map.get('id');
-      this.article = this.articleService.getArticle(id);
-      console.log(this.article);
-    });
+    this.article$ = this.route.paramMap.pipe(
+      switchMap((prams) => {
+        const id = prams.get('id');
+        return this.articleService.getArticle(id);
+      })
+    );
   }
 }

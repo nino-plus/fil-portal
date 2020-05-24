@@ -1,10 +1,12 @@
-<div *ngIf="article; else blank">
-  <img src="../../assets/Slowool15_Nm2_58_1888.jpg" alt="" />
-  <p>{{ article.supplier }}</p>
-  <h3>{{ article.title }}</h3>
-  <p>{{ article.season }}</p>
+<div class="container">
+  <div *ngIf="article$ | async as article">
+    <p>supplier : {{ article.supplier }}</p>
+    <p>name : {{ article.name }}</p>
+    <p>composition : {{ article.composition }}</p>
+    <p>season : {{ article.season }}</p>
+    <p>type : {{ article.type }}</p>
+    <p>gauges : {{ article.gauges }}</p>
+    <p>otherFeatures : {{ article.otherFeatures }}</p>
+    <p>userId : {{ article.userId }}</p>
+  </div>
 </div>
-
-<ng-template #blank>
-  <p>Not Found</p>
-</ng-template>
