@@ -1,42 +1,33 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Article } from '../interfaces/article';
+import { firestore } from 'firebase';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArticleService {
-  items = [
-    {
-      id: 'aaa',
-      supplier: 'Botto giuseppe',
-      title: 'ALBA 2/30, 2/48',
-      season: '20-21aw',
-    },
-    {
-      id: 'bbb',
-      supplier: 'Botto giuseppe',
-      title: 'ALBA 2/30, 2/48',
-      season: '20-21aw',
-    },
-    {
-      id: 'ccc',
-      supplier: 'Botto giuseppe',
-      title: 'ALBA 2/30, 2/48',
-      season: '20-21aw',
-    },
-    {
-      id: 'ddd',
-      supplier: 'Botto giuseppe',
-      title: 'ALBA 2/30, 2/48',
-      season: '20-21aw',
-    },
-  ];
+  constructor(private db: AngularFirestore) {}
 
-  constructor() {}
+  createArticle(article: Omit<Article, 'id' | 'createdAt'>): Promise<void> {
+    const id = this.db.createId();
+    return this.db.doc(`articles/${id}`).set({
+      id,
+      ...article,
+      craetedAt: firestore.Timestamp.now(), // firestore形式のタイムスタンプを追加
+    });
+  }
 
-  createArticle() {}
   updateArticle() {}
+
   deleteArticle() {}
+
   getArticle(id: string) {
-    return this.items.find((item) => item.id === id);
+    return this.db.doc<Article>(`articles/${id}`).valueChanges();
+  }
+
+  getArticles(): Observable<Article[]> {
+    return this.db.collection<Article>(`articles`).valueChanges();
   }
 }

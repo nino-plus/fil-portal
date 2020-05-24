@@ -5,13 +5,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   user$: Observable<User> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
       if (afUser) {
@@ -21,15 +18,15 @@ export class AuthService {
       }
     })
   );
+  uid: string;
 
-  constructor(
-    public afAuth: AngularFireAuth,
-    private db: AngularFirestore
-  ) {
-    this.user$.subscribe(user => console.log(user));
+  constructor(public afAuth: AngularFireAuth, private db: AngularFirestore) {
+    this.user$.subscribe((user) => {
+      this.uid = user && user.userId;
+    });
   }
 
-  createUser(params: { email: string; password: string}) {
+  createUser(params: { email: string; password: string }) {
     this.afAuth
       .createUserWithEmailAndPassword(params.email, params.password)
       .then((result) => {
