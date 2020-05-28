@@ -1,4 +1,4 @@
-<h1>Add New Article</h1>
+<h1>{{ target ? 'Edit Article' : 'Add New Article' }}</h1>
 
 <div class="container">
   <form [formGroup]="form" (ngSubmit)="submit()">
@@ -136,8 +136,22 @@
 
     <div class="form-footer">
       <button [disabled]="form.invalid" mat-raised-button color="primary">
-        Add
+        Save
       </button>
     </div>
   </form>
+
+  <ng-container *ngIf="articleId">
+    <div class="form-footer">
+      <button
+        [disabled]="form.invalid"
+        mat-raised-button
+        color="primary"
+        (click)="deleteArticle(articleId)"
+        [routerLink]="['/']"
+      >
+        Delete
+      </button>
+    </div>
+  </ng-container>
 </div>

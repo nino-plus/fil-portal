@@ -10,21 +10,27 @@ import { Observable } from 'rxjs';
 export class ArticleService {
   constructor(private db: AngularFirestore) {}
 
-  createArticle(article: Omit<Article, 'id' | 'createdAt'>): Promise<void> {
-    const id = this.db.createId();
-    return this.db.doc(`articles/${id}`).set({
-      id,
+  createArticle(
+    article: Omit<Article, 'articleId' | 'createdAt'>
+  ): Promise<void> {
+    const articleId = this.db.createId();
+    return this.db.doc(`articles/${articleId}`).set({
+      articleId,
       ...article,
       craetedAt: firestore.Timestamp.now(), // firestore形式のタイムスタンプを追加
     });
   }
 
-  updateArticle() {}
+  updateArticle(article: Article): Promise<void> {
+    return this.db.doc(`articles/${article.articleId}`).update(article);
+  }
 
-  deleteArticle() {}
+  deleteArticle(articleId: string): Promise<void> {
+    return this.db.doc(`articles/${articleId}`).delete();
+  }
 
-  getArticle(id: string) {
-    return this.db.doc<Article>(`articles/${id}`).valueChanges();
+  getArticle(articleId: string) {
+    return this.db.doc<Article>(`articles/${articleId}`).valueChanges();
   }
 
   getArticles(): Observable<Article[]> {

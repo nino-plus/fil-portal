@@ -8,5 +8,13 @@
     <p>gauges : {{ article.gauges }}</p>
     <p>otherFeatures : {{ article.otherFeatures }}</p>
     <p>userId : {{ article.userId }}</p>
+    <button
+      mat-button
+      [routerLink]="['/create']"
+      [queryParams]="{ id: article.articleId }"
+    >
+      <mat-icon>edit</mat-icon>
+      <span>編集</span>
+    </button>
   </div>
 </div>
