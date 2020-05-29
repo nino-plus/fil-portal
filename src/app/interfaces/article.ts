@@ -7,5 +7,5 @@ export interface Article {
   gauges: string[];
   otherFeatures: string[];
   userId: string;
-  id: string;
+  articleId: string;
 }

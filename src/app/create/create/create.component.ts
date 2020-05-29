@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Article } from 'src/app/interfaces/article';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-create',
@@ -9,6 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements OnInit {
+  target: Article;
+  articleId: string;
   form = this.fb.group({
     supplier: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.maxLength(40)]],
@@ -42,8 +48,30 @@ export class CreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private articleService: ArticleService,
-    private authService: AuthService
-  ) {}
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.route.queryParamMap
+      .pipe(
+        switchMap((params) => {
+          this.articleId = params.get('id');
+          if (this.articleId) {
+            return this.articleService.getArticle(params.get('id'));
+          } else {
+            return of(null);
+          }
+        })
+      )
+      .subscribe((article) => {
+        if (this.articleId) {
+          this.target = article;
+          this.form.patchValue(article);
+        } else {
+          return of(null);
+        }
+      });
+  }
 
   ngOnInit(): void {}
 
@@ -58,17 +86,45 @@ export class CreateComponent implements OnInit {
   }
 
   submit() {
-    const formData = this.form.value;
-    console.log(this.form.value);
-    this.articleService.createArticle({
-      supplier: formData.supplier,
-      name: formData.name,
-      composition: formData.composition,
-      season: formData.season,
-      type: formData.type,
-      gauges: this.dataToArray(formData.gauges),
-      otherFeatures: this.dataToArray(formData.otherFeatures),
-      userId: this.authService.uid,
-    });
+    if (this.target) {
+      const formData = this.form.value;
+      console.log(this.form.value);
+      this.articleService
+        .updateArticle({
+          supplier: formData.supplier,
+          name: formData.name,
+          composition: formData.composition,
+          season: formData.season,
+          type: formData.type,
+          gauges: this.dataToArray(formData.gauges),
+          otherFeatures: this.dataToArray(formData.otherFeatures),
+          userId: this.authService.uid,
+          articleId: this.articleId,
+        })
+        .then(() => {
+          this.router.navigateByUrl('/');
+        });
+    } else {
+      const formData = this.form.value;
+      console.log(this.form.value);
+      this.articleService
+        .createArticle({
+          supplier: formData.supplier,
+          name: formData.name,
+          composition: formData.composition,
+          season: formData.season,
+          type: formData.type,
+          gauges: this.dataToArray(formData.gauges),
+          otherFeatures: this.dataToArray(formData.otherFeatures),
+          userId: this.authService.uid,
+        })
+        .then(() => {
+          this.router.navigateByUrl('/');
+        });
+    }
+  }
+
+  deleteArticle() {
+    return this.articleService.deleteArticle(this.articleId);
   }
 }
