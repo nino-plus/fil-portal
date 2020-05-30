@@ -22,7 +22,7 @@ export class AuthService {
   uid: string;
 
   constructor(
-    public afAuth: AngularFireAuth,
+    private afAuth: AngularFireAuth,
     private db: AngularFirestore,
     private snackBar: MatSnackBar
   ) {
@@ -83,17 +83,13 @@ export class AuthService {
         }
       })
       .then(() => {
-        this.snackBar.open('ログインしました', null, {
-          duration: 2000,
-        });
+        this.snackBar.open('ログインしました', null);
       });
   }
 
   logout() {
     this.afAuth.signOut().then(() => {
-      this.snackBar.open('ログアウトしました', null, {
-        duration: 2000,
-      });
+      this.snackBar.open('ログアウトしました', null);
     });
   }
 }

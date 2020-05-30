@@ -105,9 +105,7 @@ export class CreateComponent implements OnInit {
         })
         .then(() => {
           this.router.navigateByUrl('/');
-          this.snackBar.open('記事を編集しました', null, {
-            duration: 2000,
-          });
+          this.snackBar.open('記事を編集しました', null);
         });
     } else {
       const formData = this.form.value;
@@ -125,18 +123,14 @@ export class CreateComponent implements OnInit {
         })
         .then(() => {
           this.router.navigateByUrl('/');
-          this.snackBar.open('記事を作成しました。', null, {
-            duration: 2000,
-          });
+          this.snackBar.open('記事を作成しました。', null);
         });
     }
   }
 
   deleteArticle() {
     return this.articleService.deleteArticle(this.articleId).then(() => {
-      this.snackBar.open('記事を削除しました。', null, {
-        duration: 2000,
-      });
+      this.snackBar.open('記事を削除しました。', null);
     });
   }
 }
