@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
+    MatSnackBarModule,
   ],
 })
 export class SharedModule {}
