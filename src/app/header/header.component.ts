@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { DrawerService } from '../services/drawer.service';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +9,15 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private drawerService: DrawerService
   ) {}
 
   ngOnInit(): void {}
+
+  toggle() {
+    this.drawerService.toggle();
+  }
 
   logout() {
     this.authService.logout();
