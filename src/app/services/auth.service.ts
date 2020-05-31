@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../interfaces/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,11 @@ export class AuthService {
   );
   uid: string;
 
-  constructor(public afAuth: AngularFireAuth, private db: AngularFirestore) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private db: AngularFirestore,
+    private snackBar: MatSnackBar
+  ) {
     this.user$.subscribe((user) => {
       this.uid = user && user.userId;
     });
@@ -76,10 +81,15 @@ export class AuthService {
             alert('メールアドレスが不正です');
             break;
         }
+      })
+      .then(() => {
+        this.snackBar.open('ログインしました', null);
       });
   }
 
   logout() {
-    this.afAuth.signOut();
+    this.afAuth.signOut().then(() => {
+      this.snackBar.open('ログアウトしました', null);
+    });
   }
 }

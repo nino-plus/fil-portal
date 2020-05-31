@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/interfaces/article';
 import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create',
@@ -50,7 +51,8 @@ export class CreateComponent implements OnInit {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.route.queryParamMap
       .pipe(
@@ -103,6 +105,7 @@ export class CreateComponent implements OnInit {
         })
         .then(() => {
           this.router.navigateByUrl('/');
+          this.snackBar.open('記事を編集しました', null);
         });
     } else {
       const formData = this.form.value;
@@ -120,11 +123,14 @@ export class CreateComponent implements OnInit {
         })
         .then(() => {
           this.router.navigateByUrl('/');
+          this.snackBar.open('記事を作成しました。', null);
         });
     }
   }
 
   deleteArticle() {
-    return this.articleService.deleteArticle(this.articleId);
+    return this.articleService.deleteArticle(this.articleId).then(() => {
+      this.snackBar.open('記事を削除しました。', null);
+    });
   }
 }
