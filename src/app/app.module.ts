@@ -14,9 +14,17 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SharedModule } from './shared/shared.module';
+import { DrawerComponent } from './drawer/drawer.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    DrawerComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,6 +36,8 @@ import { SharedModule } from './shared/shared.module';
     AngularFireFunctionsModule,
     AngularFireAuthModule,
     SharedModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   providers: [{ provide: REGION, useValue: 'asia-notheast1' }],
   bootstrap: [AppComponent],
