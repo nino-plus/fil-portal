@@ -17,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
 import { DrawerComponent } from './drawer/drawer.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
     HeaderComponent,
     FooterComponent,
     DrawerComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
