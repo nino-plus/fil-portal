@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-const algoliasearch = require('algoliasearch');
+import algoliasearch from 'algoliasearch';
 
 const ALGOLIA_ID = functions.config().algolia.app_id;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.api_key;
@@ -27,3 +27,25 @@ export const addRecord = functions
     };
     return index.saveObject(item);
   });
+
+export const removeIndex = (id: string) => {
+  return index.deleteBy({ filters: `articleId:${id}` });
+};
+
+export const updateIndex = async (data: any) => {
+  const item = {
+    supplier: data.supplier,
+    name: data.name,
+    composition: data.composition,
+    season: data.season,
+    type: data.type,
+    gauges: data.gauges,
+    otherFeatures: data.otherFeatures,
+    userId: data.userId,
+    articleId: data.articleId,
+    objectID: data.objectID,
+  };
+  item.objectID = data.articleId;
+  await removeIndex(item.articleId);
+  return index.saveObject(item);
+};

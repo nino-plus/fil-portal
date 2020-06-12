@@ -1,12 +1,13 @@
+<h2>検索結果一覧 ヒット件数: {{ result?.nbHits }}</h2>
 <div class="grid">
-  <mat-card *ngFor="let article of articles$ | async">
-    <p>supplier : {{ article.supplier }}</p>
-    <p>name : {{ article.name }}</p>
-    <p>composition : {{ article.composition }}</p>
+  <mat-card *ngFor="let hit of result?.hits">
+    <p>supplier : {{ hit.supplier }}</p>
+    <p>name : {{ hit.name }}</p>
+    <p>composition : {{ hit.composition }}</p>
     <button
       mat-raised-button
       color="primary"
-      [routerLink]="['/detail', article.articleId]"
+      [routerLink]="['/detail', hit.articleId]"
     >
       詳細画面へ
     </button>
