@@ -6,10 +6,21 @@
     >Fil-Portal</a
   >
 
-  <div class="search">
-    <input class="search__input" type="text" autocomplete="off" />
-    <mat-icon class="search__icon" color="primary">search</mat-icon>
-  </div>
+  <form class="search" (ngSubmit)="routeSearch(searchControl.value)">
+    <input
+      class="search__input"
+      type="text"
+      [formControl]="searchControl"
+      autocomplete="off"
+    />
+    <mat-icon
+      (click)="routeSearch(searchControl.value)"
+      class="search__icon"
+      color="primary"
+    >
+      search
+    </mat-icon>
+  </form>
 
   <span class="spacer"></span>
 
