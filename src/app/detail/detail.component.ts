@@ -4,6 +4,9 @@ import { ArticleService } from '../services/article.service';
 import { Article } from '../interfaces/article';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { CartService } from '../services/cart.service';
+import { AuthService } from '../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-detail',
@@ -15,7 +18,10 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private cartService: CartService,
+    private authService: AuthService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -25,5 +31,13 @@ export class DetailComponent implements OnInit {
         return this.articleService.getArticle(id);
       })
     );
+  }
+
+  addCart(articleId: string) {
+    return this.cartService
+      .addCart(this.authService.uid, articleId)
+      .then(() => {
+        this.snackBar.open('カートに追加しました', null);
+      });
   }
 }
