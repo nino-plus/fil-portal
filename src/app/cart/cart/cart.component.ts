@@ -5,6 +5,7 @@ import { User } from '../../interfaces/user';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Article } from 'src/app/interfaces/article';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  users$: Observable<User[]> = this.cartService.getCartItems(
+  articles$: Observable<Article[]> = this.cartService.getCartItems(
     this.authService.uid
   );
 

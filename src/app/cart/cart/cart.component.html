@@ -1,13 +1,19 @@
-<div class="grid">
-  <mat-card *ngFor="let user of users$ | async">
-    <p>追加した記事ID : {{ user.articleId }}</p>
-    <button
-      mat-button
-      mat-raised-button
-      color="primary"
-      (click)="deleteCartItem(this.user.articleId)"
-    >
-      Delete
-    </button>
-  </mat-card>
+<div class="container">
+  <div class="grid">
+    <mat-card *ngFor="let article of articles$ | async">
+      <div class="flex">
+        <p>supplier : {{ article.supplier }}</p>
+        <p>name : {{ article.name }}</p>
+        <p>composition : {{ article.composition }}</p>
+        <button
+          mat-button
+          mat-raised-button
+          color="primary"
+          (click)="deleteCartItem(this.article.articleId)"
+        >
+          Delete
+        </button>
+      </div>
+    </mat-card>
+  </div>
 </div>
