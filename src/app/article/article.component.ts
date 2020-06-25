@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '../services/article.service';
 import { Article } from '../interfaces/article';
-import { Observable } from 'rxjs';
 import { SearchService } from '../services/search.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SearchIndex } from 'functions';
+import { ActivatedRoute } from '@angular/router';
+import { SearchIndex } from 'algoliasearch/lite';
 
 @Component({
   selector: 'app-article',
@@ -12,33 +10,35 @@ import { SearchIndex } from 'functions';
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements OnInit {
-  articles$: Observable<Article[]> = this.articleService.getArticles();
-
   private index: SearchIndex = this.searchService.index.article;
 
+  searchResult = false;
   result: {
     nbHits: number;
     hits: any[];
   };
+  resultList: Article[] = [];
+  query: string;
 
   constructor(
-    private articleService: ArticleService,
     private searchService: SearchService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {
     this.route.queryParamMap.subscribe((map) => {
-      const searchQuery: string = map.get('searchQuery');
-      const selectedTags: string[] = map.get('tags')
-        ? map.get('tags').split(',')
-        : [];
-      this.index
-        .search(searchQuery, {
-          facetFilters: selectedTags,
-        })
-        .then((result) => (this.result = result));
+      this.resultList = [];
+      this.index = this.searchService.index.article;
+      this.query = map.get('searchQuery') || '';
+      this.search();
     });
   }
 
   ngOnInit() {}
+
+  private search() {
+    this.index.search(this.query).then((result) => {
+      this.result = result;
+      const items = result.hits as any[];
+      this.resultList.push(...items);
+    });
+  }
 }
