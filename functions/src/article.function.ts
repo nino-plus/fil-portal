@@ -1,20 +1,42 @@
 import * as functions from 'firebase-functions';
-import { updateIndex, removeIndex } from './algolia';
+import { Algolia } from './utils/algolia';
 
-export const updateArticleMeta = functions.firestore
-  .document('articles/{articleId}')
-  .onUpdate(async (change, context) => {
-    const newData = change.after.data();
+const algolia = new Algolia();
 
-    if (!newData) {
-      throw new Error('データが存在しません');
-    }
-
-    return updateIndex(newData);
+export const createArticle = functions
+  .region('asia-northeast1')
+  .firestore.document('articles/{articleId}')
+  .onCreate((snap) => {
+    const data = snap.data();
+    return algolia.saveRecord({
+      indexName: 'articles',
+      largeConcentKey: 'body',
+      data,
+    });
   });
 
-export const deleteArticle = functions.firestore
-  .document('articles/{articleId}')
-  .onDelete(async (snapshot, context) => {
-    return removeIndex(context.params.articleId);
+export const deleteArticle = functions
+  .region('asia-northeast1')
+  .firestore.document('articles/{articleId}')
+  .onDelete((snap) => {
+    const data = snap.data();
+
+    if (data) {
+      return algolia.removeRecord('articles', data.articleId);
+    } else {
+      return;
+    }
+  });
+
+export const updateArticle = functions
+  .region('asia-northeast1')
+  .firestore.document('articles/{articleId}')
+  .onUpdate((change) => {
+    const data = change.after.data();
+    return algolia.saveRecord({
+      indexName: 'articles',
+      largeConcentKey: 'body',
+      isUpdate: true,
+      data,
+    });
   });

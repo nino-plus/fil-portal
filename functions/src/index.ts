@@ -2,10 +2,6 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 export * from './article.function';
 
-export { addRecord } from './algolia';
-export { removeIndex } from './algolia';
-export { updateIndex } from './algolia';
-
 admin.initializeApp();
 const db = admin.firestore();
 
