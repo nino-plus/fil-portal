@@ -2,23 +2,29 @@
   flex: 1;
 }
 
-.header_logo {
-  font-size: 24px;
+.header {
+  background-color: #fff;
+  &__logo {
+    font-size: 24px;
+    vertical-align: middle;
+    margin-right: 16px;
+  }
+  &__button {
+    margin-right: 16px;
+  }
 }
 
 .search {
   display: flex;
   position: relative;
   flex: 1;
-  max-width: 500px;
+  max-width: 650px;
   &__input {
     -webkit-appearance: none;
     -moz-appearance: none;
-    border: none;
-    padding-right: 32px;
-    padding-left: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
     line-height: 32px;
-    border-radius: 4px;
+    border-radius: 20px;
     width: 100%;
   }
   &__icon {
@@ -26,5 +32,6 @@
     top: 50%;
     transform: translateY(-50%);
     right: 8px;
+    color: rgba(0, 0, 0, 0.32);
   }
 }
