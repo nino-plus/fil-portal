@@ -6,7 +6,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 })
 export class DrawerService {
   isOpenSource = new ReplaySubject<boolean>(1);
-  isOpened$: Observable<boolean> = this.isOpenSource.asObservable();
+  isOpen$: Observable<boolean> = this.isOpenSource.asObservable();
   isOpened: boolean;
 
   toggle() {

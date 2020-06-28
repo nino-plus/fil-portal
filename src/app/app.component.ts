@@ -8,8 +8,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  isOpened$: Observable<boolean> = this.drawerService.isOpened$;
+  isOpened$: Observable<boolean> = this.drawerService.isOpen$;
   title = 'fil-portal';
 
-  constructor(private drawerService: DrawerService) {}
+  opened = true;
+
+  constructor(private drawerService: DrawerService) {
+    this.drawerService.isOpen$.subscribe((opened) => (this.opened = opened));
+  }
 }
