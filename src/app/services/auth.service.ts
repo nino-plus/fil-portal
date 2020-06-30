@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,8 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private db: AngularFirestore,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.user$.subscribe((user) => {
       this.uid = user && user.userId;
@@ -84,12 +86,14 @@ export class AuthService {
       })
       .then(() => {
         this.snackBar.open('ログインしました', null);
+        this.router.navigateByUrl('/');
       });
   }
 
   logout() {
     this.afAuth.signOut().then(() => {
       this.snackBar.open('ログアウトしました', null);
+      this.router.navigateByUrl('/');
     });
   }
 }

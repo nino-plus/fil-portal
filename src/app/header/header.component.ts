@@ -4,6 +4,8 @@ import { DrawerService } from '../services/drawer.service';
 import { SearchService } from '../services/search.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { User } from '../interfaces/user';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +15,7 @@ import { FormControl } from '@angular/forms';
 export class HeaderComponent implements OnInit {
   searchControl = new FormControl('');
   index = this.searchService.index.article;
+  user$: Observable<User> = this.authService.user$;
 
   constructor(
     private authService: AuthService,
